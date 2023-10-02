@@ -1,3 +1,5 @@
+//This program is meant to take input from a user and return whether the number is even or odd.
+
 #include <iostream>
 
 using namespace std;
