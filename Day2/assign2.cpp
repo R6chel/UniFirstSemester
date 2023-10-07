@@ -15,9 +15,6 @@ int main() {
     cin >> y >> "\n";
 
 
-    while(){
-
-    }
-
     return 0;
 }
+//wip
