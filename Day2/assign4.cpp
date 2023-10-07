@@ -6,20 +6,22 @@ using namespace std;
 int main() {
 
     int x; 
-    int line = 1;
+    int asterisk = 1;
     int temp;
 
     cin >> x;
     cout << endl;
 
     while(x-- > 0) {
-        temp = line;
+        temp = asterisk;
         while(temp-- > 0) {
             cout << "*";
         }
-        line++;
-        cout << "\n"; 
+        asterisk++;
+        cout << endl;
     }
+    
+    cout << endl;
     
     return 0;
 }
