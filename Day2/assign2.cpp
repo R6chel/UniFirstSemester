@@ -5,14 +5,21 @@ using namespace std;
 
 int main() {
 
-    double x, y;
+    double base, exponent, result;
 
 
     cout << "Podaj podstawe potęgi: ";
-    cin >> x >> "\n";
+    cin >> base;
+
+    result = 1;
 
     cout << "Podaj wykladnik potegi: ";
-    cin >> y >> "\n";
+    cin >> exponent;
+
+    while(exponent-- > 0) {
+        result = result * base;
+    }
+    cout << "Wynik: " << result << endl;
 
 
     return 0;
