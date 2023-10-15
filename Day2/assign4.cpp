@@ -7,13 +7,12 @@ int main() {
 
     int x; 
     int asterisk = 1;
-    int temp;
 
     cin >> x;
     cout << endl;
 
     while(x-- > 0) {
-        temp = asterisk;
+        int temp = asterisk;
         while(temp-- > 0) {
             cout << "*";
         }

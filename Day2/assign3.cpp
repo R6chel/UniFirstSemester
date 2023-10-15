@@ -5,9 +5,10 @@ using namespace std;
 
 int main() {
 
-    int num, digit;
-
+    int num;
     cin >> num;
+
+    int digit = 0;
 
     while(num > 0) {
         digit++;
