@@ -1,4 +1,3 @@
-//Utworz 10-elementowa tablice znakow, wypelnij literami wprowadzonymi przez uzytkownika. Zamień wszystkie wilekie litery na małe i
 #include <iostream>
 #include <string>
 #include <algorithm>
