@@ -1,4 +1,3 @@
-/*
 PRZYKLAD 1:
 
 #include <iomanip>
@@ -375,4 +374,3 @@ int main() {
 
 	return 0;
 }
-*/
