@@ -1,5 +1,3 @@
-//program pobiera int x od uzytkownika i wypisuje wszystkie liczby 1-x podzielne przez 3
-
 #include <iostream>
 using namespace std;
 

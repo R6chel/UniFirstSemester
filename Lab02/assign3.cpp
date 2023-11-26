@@ -5,16 +5,12 @@ using namespace std;
 
 int main() {
 
-    int num;
-    cin >> num;
+    int sum = 0;
 
-    int digit = 0;
-
-    while(num > 0) {
-        digit++;
-        num = num/10;
+    for (int i = 1; i < 6; i++) {
+        sum = sum + i;    
     }
-    cout << digit << endl;
+    cout << sum;
 
     return 0;
 }

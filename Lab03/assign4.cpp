@@ -6,8 +6,8 @@ using namespace std;
 int main() {
 
     int x;
-
     cin >> x;
+    
     cout << endl;
 
     for (int i = x; i > 0; i--) {

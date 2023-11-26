@@ -5,13 +5,12 @@ using namespace std;
 
 int main() {
 
-    double base, exponent, result;
+    double base, exponent; 
+    int result = 1;
 
 
     cout << "Podaj podstawe potęgi: ";
     cin >> base;
-
-    result = 1;
 
     cout << "Podaj wykladnik potegi: ";
     cin >> exponent;
