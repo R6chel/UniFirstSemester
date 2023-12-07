@@ -12,14 +12,14 @@ struct Node {
     }
 };
 
-void appendMaxNode(Node* head) {
+void appendMaxNode(Node* first) {
 
-    if (head == nullptr) {
+    if (first == nullptr) {
         cout << "list empty\n";
         return;
     }
 
-    Node* current = head;
+    Node* current = first;
     int maxVal = current->num;
 
     while (current != nullptr) {
@@ -31,16 +31,16 @@ void appendMaxNode(Node* head) {
 
     Node* newNode = new Node(maxVal);
 
-    current = head;
+    current = first;
     while (current->next != nullptr) {
         current = current->next;
     }
     current->next = newNode;
 }
 
-void dispList(Node* head) {
+void dispList(Node* first) {
 
-    Node* current = head;
+    Node* current = first;
     while (current != nullptr) {
         cout << current->num << " ";
         current = current->next;
@@ -50,18 +50,18 @@ void dispList(Node* head) {
 
 int main() {
 
-    Node* head = new Node(6);
-    head->next = new Node(14);
-    head->next->next = new Node(8);
-    head->next->next->next = new Node(18);
+    Node* first = new Node(6);
+    first->next = new Node(14);
+    first->next->next = new Node(8);
+    first->next->next->next = new Node(18);
 
     cout << "list before appending max value: ";
-    dispList(head);
+    dispList(first);
 
-    appendMaxNode(head);
+    appendMaxNode(first);
 
     cout << "list after appending max value: ";
-    dispList(head);
+    dispList(first);
 
     return 0;
 }
