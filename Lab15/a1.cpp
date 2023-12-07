@@ -1,85 +1,67 @@
-//Napisać funkcję, która na końcu listy jednokierunkowej zawierającej liczby całkowite, dopisuje element zawierający największą wartość z listy. Wyświetl listę przed wywołaniem funkcji i po.
 #include <iostream>
 using namespace std;
 
-// Structure for a node in the linked list
 struct Node {
-    char sign;
-    int number;
+
+    int num;
     Node* next;
+
+    Node(int value) {
+        num = value;
+        next = nullptr;
+    }
 };
 
-// Function to append an element containing the sum
-void appendSum(Node* head) {
-    if (head == nullptr || head->next == nullptr) {
-        cout << "List is empty or contains only one element." << endl;
+void appendMaxNode(Node* head) {
+
+    if (head == nullptr) {
+        cout << "list empty\n";
         return;
     }
 
-    char firstSign = head->sign;
-    int sum = 0;
+    Node* current = head;
+    int maxVal = current->num;
 
-    Node* temp = head;
-    while (temp != nullptr) {
-        if (temp->sign == firstSign) {
-            sum += temp->number;
+    while (current != nullptr) {
+        if (current->num > maxVal) {
+            maxVal = current->num;
         }
-        temp = temp->next;
+        current = current->next;
     }
 
-    // Creating the new node with the sum
-    Node* newNode = new Node();
-    newNode->sign = firstSign;
-    newNode->number = sum;
-    newNode->next = nullptr;
+    Node* newNode = new Node(maxVal);
 
-    // Appending the new node at the end of the list
-    temp = head;
-    while (temp->next != nullptr) {
-        temp = temp->next;
+    current = head;
+    while (current->next != nullptr) {
+        current = current->next;
     }
-    temp->next = newNode;
+    current->next = newNode;
 }
 
-// Function to display the linked list
-void displayList(Node* head) {
-    Node* temp = head;
-    while (temp != nullptr) {
-        cout << "(" << temp->sign << ", " << temp->number << ") -> ";
-        temp = temp->next;
+void dispList(Node* head) {
+
+    Node* current = head;
+    while (current != nullptr) {
+        cout << current->num << " ";
+        current = current->next;
     }
-    cout << "nullptr" << endl;
+    cout << "\n";
 }
 
 int main() {
-    // Example list: (s, 2) -> (s, 5) -> (t, 3) -> (s, 4)
-    Node* head = new Node();
-    head->sign = 's';
-    head->number = 2;
 
-    Node* second = new Node();
-    second->sign = 's';
-    second->number = 5;
-    head->next = second;
+    Node* head = new Node(6);
+    head->next = new Node(14);
+    head->next->next = new Node(8);
+    head->next->next->next = new Node(18);
 
-    Node* third = new Node();
-    third->sign = 't';
-    third->number = 3;
-    second->next = third;
+    cout << "list before appending max value: ";
+    dispList(head);
 
-    Node* fourth = new Node();
-    fourth->sign = 's';
-    fourth->number = 4;
-    third->next = fourth;
-    fourth->next = nullptr;
+    appendMaxNode(head);
 
-    cout << "Original list: ";
-    displayList(head);
-
-    appendSum(head);
-
-    cout << "After appending sum: ";
-    displayList(head);
+    cout << "list after appending max value: ";
+    dispList(head);
 
     return 0;
 }
