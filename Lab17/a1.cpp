@@ -13,9 +13,9 @@ void reverseStack(stack<int> &original, stack<int> &reversed) {
 int main() {
 
     stack<int> myStack;
-    myStack.push(63);
-    myStack.push(5746);
-    myStack.push(534);
+    myStack.push(1);
+    myStack.push(2);
+    myStack.push(3);
 
     stack<int> reversedStack;
     reverseStack(myStack, reversedStack);
