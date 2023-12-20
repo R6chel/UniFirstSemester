@@ -1,8 +1,3 @@
-/*
-Napisz program który obliczy sumę liczb typu float zapisanych w pliku tekstowym o nazwie liczby.txt.
-Każda liczba jest w osobnej linii, nie wiemy ile jest liczb. Napisz też obsługę błędów, gdyby nie powiodła się próba odczytu z pliku.
-*/
-
 #include <iostream>
 #include <fstream>
 
@@ -10,14 +5,25 @@ using namespace std;
 
 int main() {
 
-    fstream file;
-    
-    file.open("liczby.txt", ios::in);
+   fstream file;
+   float num;
+   float sum = 0.0;
 
-    if (file.good() == false) {
-        cout << "File cannot be opened.";
-        return 1;
-    }
+   file.open("liczby.txt", ios::in);
 
-    return 0;
+   if (file.good() == false) {
+       cout << "File cannot be opened.";
+       
+       return 1;
+   }
+
+   while (file >> num) {
+       sum += num;
+   }
+
+   cout << "Sum: " << sum << "\n";
+
+   file.close();
+
+   return 0;
 }
