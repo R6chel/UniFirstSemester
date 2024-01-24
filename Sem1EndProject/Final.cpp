@@ -50,7 +50,6 @@ using namespace std;
 
 // Enum representing movement directions
 enum movement {
-
     UP = 72,
     DOWN = 80,
     LEFT = 75,
@@ -59,7 +58,6 @@ enum movement {
 
 // Function to set the cursor position in the console window
 void gotoxy(int x, int y) {
-
     COORD coord;
     coord.X = x;
     coord.Y = y;
@@ -68,13 +66,11 @@ void gotoxy(int x, int y) {
 
 // Structure to represent a point with x and y coordinates
 struct Point {
-
     int x, y;
 };
 
 // Structure to represent a shape with position, size, and a vector of vectors (body)
 struct Shape {
-
     Point position;
     int size;
     vector<vector<char>> body; // Vector of vectors for the shape
@@ -87,7 +83,6 @@ vector<vector<char>> createShapeBody(int size, char symbol) {
 
 // Function to draw the shape on the console window
 void drawShape(const Shape& shape) {
-
     gotoxy(shape.position.x, shape.position.y);
     for (int i = 0; i < shape.size; ++i) {
         for (int j = 0; j < shape.size; ++j) {
@@ -100,7 +95,6 @@ void drawShape(const Shape& shape) {
 
 // Function to clear the shape from the console window
 void clearShape(const Shape& shape) {
-
     gotoxy(shape.position.x, shape.position.y);
     for (int i = 0; i < shape.size; ++i) {
         for (int j = 0; j < shape.size; ++j) {
@@ -112,7 +106,6 @@ void clearShape(const Shape& shape) {
 
 // Function to get the current console window size
 void getConsoleWindowSize(int& width, int& height) {
-
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
         width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
@@ -126,7 +119,6 @@ void getConsoleWindowSize(int& width, int& height) {
 
 // Error-checking function for integer input
 int getIntegerInput() {
-
     int input;
     while (true) {
         if (cin >> input) {
@@ -143,7 +135,6 @@ int getIntegerInput() {
 }
 
 int main() {
-
     // Get building block (character) from the user
     char symbol;
     cout << "Enter the ASCII character which the shape will be made out of: ";
@@ -175,47 +166,48 @@ int main() {
     cursorInfo.bVisible = false;
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
 
-int key;
-while ((key = getch()) != 27) {
-    clearShape(movingShape);
+    // Main loop for handling user input and updating the shape
+    int key;
+    while ((key = getch()) != 27) {  // 27 corresponds to the Esc key
+        clearShape(movingShape);
 
-    // Handle arrow key presses using the Movement enum
-    switch (key) {
-        case movement::UP: //Up arrow
-            if (movingShape.position.y > 0) {
-                movingShape.position.y--;
-            }
-            break;
-        case movement::DOWN:  // Down arrow
-            if (movingShape.position.y + movingShape.size < verticalLimit) {
-                movingShape.position.y++;
-            }
-            break;
-        case movement::LEFT:  // Left arrow
-            if (movingShape.position.x > 0) {
-                movingShape.position.x--;
-            }
-            break;
-        case movement::RIGHT:  // Right arrow
-            if (movingShape.position.x + movingShape.size < initialWidth) {
-                movingShape.position.x++;
-            }
-            break;
-        case '+':  // Increase shape size
-            movingShape.size++;
-            movingShape.body = createShapeBody(movingShape.size, symbol);
-            break;
-        case '-':  // Decrease shape size
-            if (movingShape.size > 1) {
-                movingShape.size--;
+        // Handle arrow key presses using the Movement enum
+        switch (key) {
+            case movement::UP:
+                if (movingShape.position.y > 0) {
+                    movingShape.position.y--;
+                }
+                break;
+            case movement::DOWN:
+                if (movingShape.position.y + movingShape.size < verticalLimit) {
+                    movingShape.position.y++;
+                }
+                break;
+            case movement::LEFT:
+                if (movingShape.position.x > 0) {
+                    movingShape.position.x--;
+                }
+                break;
+            case movement::RIGHT:
+                if (movingShape.position.x + movingShape.size < initialWidth) {
+                    movingShape.position.x++;
+                }
+                break;
+            case '+':
+                movingShape.size++;
                 movingShape.body = createShapeBody(movingShape.size, symbol);
-            }
-            break;
-    }
+                break;
+            case '-':
+                if (movingShape.size > 1) {
+                    movingShape.size--;
+                    movingShape.body = createShapeBody(movingShape.size, symbol);
+                }
+                break;
+        }
 
-    drawShape(movingShape);
-    Sleep(20);  // Pause for a short duration (milliseconds)
-}
+        drawShape(movingShape);
+        Sleep(20);  // Pause for a short duration (milliseconds)
+    }
 
     // Show cursor and end program
     cursorInfo.bVisible = true;
