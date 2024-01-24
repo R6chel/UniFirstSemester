@@ -1,7 +1,11 @@
 /*
-Final.cpp
-Submit until: 25.01.2024
-s24583 / Filip Bone
+Projekt PRG1
+
+Name: Final.cpp
+Submit until: 25.01.2024 
+Author: s24583 / Filip Bone
+
+Description:
 
 Temat projektu:
 
@@ -14,15 +18,18 @@ Napisz program rysowania znakiem ASCII poniższej figury. Program powinien umoż
 
 SHAPE:
 
-#
-    #
-        #
-            # <- summit
-        #
-    #
-#
+Let's assume size = 4.
 
-Uwaga: punkt początkowy (summit) znajudeje się na środku ekranu (basha).
+#     {
+ #      <- ascending part
+   #  }
+    # <- summit
+   #  {
+  #     <- descending part
+#     }
+
+
+Uwaga: punkt początkowy (summit) znajudeje się na środku ekranu.
 
 Program musi:
 1. działać poprawnie;
@@ -82,32 +89,26 @@ vector<vector<char>> createShapeBody(int size, char symbol) {
 }
 
 // Function to draw the shape on the console window
-void drawShape(const Shape& shape) {
-    gotoxy(shape.position.x, shape.position.y);
-    for (int i = 0; i < shape.size; ++i) {
-        for (int j = 0; j < shape.size; ++j) {
-            cout << shape.body[i][j];
-        }
-        cout << "\n";
-        gotoxy(shape.position.x, shape.position.y + i + 1);
+void drawShape(const Shape& shape, char assignedCharacter) {
+    // Draw the ascending part
+    for(int i = 0; i < shape.size; i++){
+        gotoxy(shape.position.x-i, shape.position.y-i);
+        cout << assignedCharacter;
     }
-}
-
-// Function to clear the shape from the console window
-void clearShape(const Shape& shape) {
-    gotoxy(shape.position.x, shape.position.y);
-    for (int i = 0; i < shape.size; ++i) {
-        for (int j = 0; j < shape.size; ++j) {
-            cout << " ";
-        }
-        gotoxy(shape.position.x, shape.position.y + i + 1);
+    // Draw the descending part
+    for(int j = 0; j < shape.size; j++){
+        gotoxy(shape.position.x-j, shape.position.y+j);
+        cout << assignedCharacter;
     }
+    // Draw the summit
+    gotoxy(shape.position.x, shape.position.y);
 }
 
 // Function to get the current console window size
 void getConsoleWindowSize(int& width, int& height) {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
+        // Calculate the width and height of the console window
         width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
         height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
     } else {
@@ -169,43 +170,48 @@ int main() {
     // Main loop for handling user input and updating the shape
     int key;
     while ((key = getch()) != 27) {  // 27 corresponds to the Esc key
-        clearShape(movingShape);
+        drawShape(movingShape, ' ');
 
         // Handle arrow key presses using the Movement enum
         switch (key) {
             case movement::UP:
-                if (movingShape.position.y > 0) {
+                // Visually move the shape upwards
+                if (movingShape.position.y > movingShape.size) {
                     movingShape.position.y--;
                 }
                 break;
             case movement::DOWN:
+                // Visually move the shape downwards
                 if (movingShape.position.y + movingShape.size < verticalLimit) {
                     movingShape.position.y++;
                 }
                 break;
             case movement::LEFT:
-                if (movingShape.position.x > 0) {
+                // Visually move the shape left
+                if (movingShape.position.x > movingShape.size) {
                     movingShape.position.x--;
                 }
                 break;
             case movement::RIGHT:
+                // Visually move the shape right
                 if (movingShape.position.x + movingShape.size < initialWidth) {
                     movingShape.position.x++;
                 }
                 break;
             case '+':
+                // Increase the size of the shape
                 movingShape.size++;
                 movingShape.body = createShapeBody(movingShape.size, symbol);
                 break;
             case '-':
                 if (movingShape.size > 1) {
+                    // Decrease the size of the shape
                     movingShape.size--;
                     movingShape.body = createShapeBody(movingShape.size, symbol);
                 }
                 break;
         }
-
-        drawShape(movingShape);
+        drawShape(movingShape, symbol);
         Sleep(20);  // Pause for a short duration (milliseconds)
     }
 
