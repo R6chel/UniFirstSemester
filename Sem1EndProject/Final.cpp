@@ -158,7 +158,7 @@ int main() {
     system(("mode con: cols=" + to_string(initialWidth) + " lines=" + to_string(initialHeight)).c_str());
 
     // Set vertical limit
-    const int verticalLimit = initialHeight - 5;
+    const int verticalLimit = initialHeight - 1;
 
     // Hide cursor
     CONSOLE_CURSOR_INFO cursorInfo;
